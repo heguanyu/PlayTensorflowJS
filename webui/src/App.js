@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './PredictionWithTensorflowJS'
+import {format as prettyFormat} from 'pretty-format';
 import {Component} from "react";
 import PredictionWithTensorflowJS from "./PredictionWithTensorflowJS";
 import ModelLoader from "./ModelLoader";
@@ -17,7 +18,8 @@ class App extends Component{
 
     this.state = {
       inputIndex: 0,
-      score: 0
+      score: 0,
+      cohort: {}
     };
   }
 
@@ -44,6 +46,7 @@ class App extends Component{
       const cohorts = results[2];
       const score = this.predictionClient.getScore(model ,cohort);
       this.setState({
+        cohort: cohort,
         score: score
       })
     })
@@ -61,6 +64,7 @@ class App extends Component{
               {this.button}
             </div>
             <div style={{marginTop: "40px"}}>Prediction score is: {this.state.score}</div>
+            <textarea value={prettyFormat(this.state.cohort)} style={{width: "1000px", height: "800px"}} title={"Content"}></textarea>
         </div>
     );
   }
