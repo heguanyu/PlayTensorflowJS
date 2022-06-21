@@ -1,3 +1,4 @@
+// const cors = require('cors');
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -6,8 +7,8 @@ const logger = require('morgan');
 const path = require('path');
 
 const port = 3009
+global.__basedir = __dirname;
 const privateGroupCandidates = require('./private_group_candidates')
-
 
 app.use(cors())
 app.use(logger('dev'));
@@ -25,7 +26,15 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get_model', (req, res) => {
-    res.send('Trying to get model\n')
+    const directoryPath = __basedir + modelsBasePath;
+    const modelName = "native_tflite_model_from_mid_dummy_data.tflite"
+    res.download(directoryPath + modelName, modelName, (err) => {
+        if (err) {
+          res.status(500).send({
+            message: "Could not download the file. " + err,
+          });
+        }
+      });
 })
 
 app.get('/fetch_cohort', (req, res) => {
