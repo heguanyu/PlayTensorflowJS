@@ -31,7 +31,6 @@ app.get('/get_model', (req, res) => {
 app.get('/fetch_cohort', (req, res) => {
     const index = req.query['index'];
     const result = privateGroupCandidates.getCohort(index);
-    console.log(result);
     res.send(result);
 })
 

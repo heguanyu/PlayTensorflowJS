@@ -28,7 +28,7 @@ class App extends Component{
     ]).then(results => {
       const model = results[0];
       const cohort = results[1];
-      const cohorts = results[1];
+      const cohorts = results[2];
       console.log(cohorts[2]);
       const score = predictionClient.getScore(model ,cohort);
       this.setState({
