@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/get_model', (req, res) => {
+    const modelsBasePath = "/resources/models/"
     const directoryPath = __basedir + modelsBasePath;
     const modelName = "native_tflite_model_from_mid_dummy_data.tflite"
     res.download(directoryPath + modelName, modelName, (err) => {
