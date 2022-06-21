@@ -1,8 +1,9 @@
 
 export default class CohortLoader {
-    getCohorts() {
+    async getCohorts() {
         // Fetch from the localhost:3000/fetch_cohorts
-        return [{}];
+        const data = await fetch(`http://localhost:3009/fetch_cohorts`).then(response=>response.json())
+        return data;
     }
     async getCohort(index) {
         // Fetch from the localhost:3000/fetch_cohort

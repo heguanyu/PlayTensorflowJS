@@ -26,7 +26,7 @@ function getCohorts() {
     while(!_cohorts) {
         loadJson()
     }
-    return _.values(_cohorts)
+    return _cohorts;
 }
 
 module.exports =  {

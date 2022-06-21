@@ -23,11 +23,13 @@ class App extends Component{
 
     Promise.all([
       modelLoader.loadModel(),
-      cohortLoader.getCohort(0)
+      cohortLoader.getCohort(0),
+      cohortLoader.getCohorts()
     ]).then(results => {
       const model = results[0];
       const cohort = results[1];
-      console.log(cohort);
+      const cohorts = results[1];
+      console.log(cohorts[2]);
       const score = predictionClient.getScore(model ,cohort);
       this.setState({
         score: score
