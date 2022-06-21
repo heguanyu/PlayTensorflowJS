@@ -19,7 +19,7 @@ function getCohort(index) {
     while(!_cohorts) {
         loadJson()
     }
-    return _cohorts[index]
+    return _cohorts[+index]
 }
 
 function getCohorts() {
