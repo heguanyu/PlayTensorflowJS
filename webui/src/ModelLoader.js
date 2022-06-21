@@ -1,8 +1,12 @@
-import tfjs from '@tensorflow/tfjs'
+// import * as tfjs from '@tensorflow/tfjs'
+import * as tflite from '@tensorflow/tfjs-tflite'
+
+const modelEndPoint = `http://localhost:3009/get_model`
 
 export default class ModelLoader {
     async loadModel() {
-        // Fetch from the localhost:3000/get_model
-        return {};
+        const model = await tflite.loadTFLiteModel(modelEndPoint);
+        console.log(model)
+        return model;
     }
 }
