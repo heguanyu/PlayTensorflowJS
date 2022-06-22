@@ -1,7 +1,7 @@
 import tfjs from '@tensorflow/tfjs'
 
 export default class PredictionWithTensorflowJS {
-    predict(model, features) {
+    predict(model, featureNames, features) {
         const startTime = Date.now()
         // TODO: Use TFJS to predict the model vs features
 

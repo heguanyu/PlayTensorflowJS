@@ -8,6 +8,7 @@ const path = require('path');
 const port = 3009
 global.__basedir = __dirname;
 const privateGroupCandidates = require('./private_group_candidates')
+const modelMetadata = require('./model_metadata')
 const pythonResults = require('./python_inferred_results')
 
 app.use(cors())
@@ -36,6 +37,10 @@ app.get('/get_model', (req, res) => {
           });
         }
       });
+})
+
+app.get('/fetch_model_metadata', (req, res) => {
+    res.send(modelMetadata.getFeatures())
 })
 
 app.get('/fetch_cohort', (req, res) => {

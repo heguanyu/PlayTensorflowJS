@@ -49,10 +49,11 @@ class SingleCandidate extends Component{
         this.cohortLoader.getCohort(index),
         this.benchmarkLoader.getBenchmark(index)
     ]).then(results => {
-      const model = results[0];
+      const model = results[0].model;
+      const featureNames = results[0].featureNames;
       const cohort = results[1];
       const benchmark = results[2];
-      const prediction = this.predictionClient.predict(model ,cohort);
+      const prediction = this.predictionClient.predict(model,featureNames, cohort);
       this.setState({
         warning: false,
         cohort: cohort,
