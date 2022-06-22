@@ -7,6 +7,7 @@ import ModelLoader from "./ModelLoader";
 import CohortLoader from "./CohortLoader";
 import TopNavigationBar from "./TopNavigationBar";
 import MemoryTracker from "./MemoryTracker";
+import BenchmarkLoader from "./BenchmarkLoader";
 
 class SingleCandidate extends Component{
   constructor(props) {
@@ -15,12 +16,14 @@ class SingleCandidate extends Component{
     this.predictionClient = new PredictionWithTensorflowJS()
     this.modelLoader = new ModelLoader()
     this.cohortLoader = new CohortLoader()
+    this.benchmarkLoader = new BenchmarkLoader()
 
     this.state = {
       warning: false,
       inputIndex: 0,
       score: 0,
       time: 0,
+        benchmark: 0,
       cohort: {}
     };
   }
@@ -42,18 +45,19 @@ class SingleCandidate extends Component{
     }
 
     Promise.all([
-      this.modelLoader.loadModel(),
-      this.cohortLoader.getCohort(index),
-      /*this.cohortLoader.getCohorts()*/
+        this.modelLoader.loadModel(),
+        this.cohortLoader.getCohort(index),
+        this.benchmarkLoader.getBenchmark(index)
     ]).then(results => {
       const model = results[0];
       const cohort = results[1];
-      /*const cohorts = results[2];*/
+      const benchmark = results[2];
       const prediction = this.predictionClient.predict(model ,cohort);
       this.setState({
         warning: false,
         cohort: cohort,
         score: prediction.score,
+        benchmark: benchmark,
         time: prediction.time
       })
     })
@@ -73,6 +77,7 @@ class SingleCandidate extends Component{
               <span style={{display: this.state.warning? "inline": "none"}}>Must be a number 0-99</span>
             </div>
             <div style={{marginTop: "20px"}}>Prediction score is: {this.state.score}</div>
+            <div style={{marginTop: "3px"}}>Expected score is: {this.state.benchmark}</div>
             <div style={{marginTop: "3px"}}>Time spent on prediction: {this.state.time}ms</div>
             <div style={{marginTop: "40px"}}>Cohort being tested</div>
             <textarea value={prettyFormat(this.state.cohort)} style={{width: "1300px", height: "800px"}} title={"Content"}></textarea>
