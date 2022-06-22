@@ -7,6 +7,7 @@ import PredictionWithTensorflowJS from "./PredictionWithTensorflowJS";
 import ModelLoader from "./ModelLoader";
 import CohortLoader from "./CohortLoader";
 import TopNavigationBar from "./TopNavigationBar";
+import MemoryTracker from "./MemoryTracker";
 
 class App extends Component{
   constructor(props) {
@@ -17,15 +18,16 @@ class App extends Component{
     this.cohortLoader = new CohortLoader()
 
     this.state = {
+      warning: false,
       inputIndex: 0,
       score: 0,
+      time: 0,
       cohort: {}
     };
   }
 
 
   componentDidMount() {
-    this.doCalculate();
   }
 
   updateTextValue(event) {
@@ -35,6 +37,10 @@ class App extends Component{
   }
   doCalculate() {
     let index = +(this.state.inputIndex || 0);
+    if (this.state.inputIndex == "" || isNaN(+this.state.inputIndex) || +this.state.inputIndex<0 || +this.state.inputIndex >= 100) {
+      this.setState({warning: true});
+      return;
+    }
 
     Promise.all([
       this.modelLoader.loadModel(),
@@ -44,10 +50,12 @@ class App extends Component{
       const model = results[0];
       const cohort = results[1];
       const cohorts = results[2];
-      const score = this.predictionClient.getScore(model ,cohort);
+      const prediction = this.predictionClient.predict(model ,cohort);
       this.setState({
+        warning: false,
         cohort: cohort,
-        score: score
+        score: prediction.score,
+        time: prediction.time
       })
     })
   }
@@ -58,13 +66,17 @@ class App extends Component{
     return (
         <div className="App">
             <TopNavigationBar></TopNavigationBar>
+            <MemoryTracker></MemoryTracker>
             <div style={{marginTop: "20px"}}>
               Index of test_data
               {this.indexInput}
               {this.button}
+              <span style={{display: this.state.warning? "inline": "none"}}>Must be a number 0-99</span>
             </div>
-            <div style={{marginTop: "40px"}}>Prediction score is: {this.state.score}</div>
-            <textarea value={prettyFormat(this.state.cohort)} style={{width: "1000px", height: "800px"}} title={"Content"}></textarea>
+            <div style={{marginTop: "20px"}}>Prediction score is: {this.state.score}</div>
+            <div style={{marginTop: "3px"}}>Time spent on prediction: {this.state.time}ms</div>
+            <div style={{marginTop: "40px"}}>Cohort being tested</div>
+            <textarea value={prettyFormat(this.state.cohort)} style={{width: "1300px", height: "800px"}} title={"Content"}></textarea>
         </div>
     );
   }
