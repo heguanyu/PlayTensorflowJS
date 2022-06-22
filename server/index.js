@@ -8,6 +8,7 @@ const path = require('path');
 const port = 3009
 global.__basedir = __dirname;
 const privateGroupCandidates = require('./private_group_candidates')
+const pythonResults = require('./python_inferred_results')
 
 app.use(cors())
 app.use(logger('dev'));
@@ -38,13 +39,23 @@ app.get('/get_model', (req, res) => {
 })
 
 app.get('/fetch_cohort', (req, res) => {
-    const index = req.query['index'];
-    const result = privateGroupCandidates.getCohort(index);
-    res.send(result);
+  const index = req.query['index'];
+  const result = privateGroupCandidates.getCohort(index);
+  res.send(result);
 })
 
 app.get('/fetch_cohorts', (req, res) => {
     res.send(privateGroupCandidates.getCohorts())
 });
+
+app.get('/python_result', (req, res) => {
+  const index = req.query['index'];
+  const result = pythonResults.getPythonResult(index);
+  res.send(result);
+})
+
+app.get('/python_results', (req, res) => {
+  res.send(pythonResults.getPythonResults());
+})
 
 module.exports = app;
