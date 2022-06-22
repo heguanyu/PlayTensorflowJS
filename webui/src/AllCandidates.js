@@ -80,7 +80,7 @@ class AllCandidates extends Component{
           <th>Predicted Score</th>
           <th>Expected Score</th>
           <th>Difference</th>
-          <th>Running time</th>
+          <th>Running time (ms)</th>
           <th>Feature Count</th>
         </tr>
         </thead>
