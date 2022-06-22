@@ -7,7 +7,7 @@ import ModelLoader from "./ModelLoader";
 import CohortLoader from "./CohortLoader";
 import TopNavigationBar from "./TopNavigationBar";
 import MemoryTracker from "./MemoryTracker";
-import {Table} from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
 import BenchmarkLoader from "./BenchmarkLoader";
 
 class AllCandidates extends Component{
@@ -92,14 +92,13 @@ class AllCandidates extends Component{
   }
 
   render() {
-    this.button = (<input style={{marginLeft: "20px"}} type={"button"} value={"Predict Scores"} onClick={this.doCalculate.bind(this)}/>);
     return (
         <div className="AllCandidates">
             <TopNavigationBar></TopNavigationBar>
             <MemoryTracker></MemoryTracker>
             <div style={{marginTop: "20px"}}>
               Running on all records in test_data
-              {this.button}
+              <Button style={{marginLeft: "20px"}}  onClick={this.doCalculate.bind(this)}>Predict score</Button>
             </div>
             {this.renderTable()}
         </div>
