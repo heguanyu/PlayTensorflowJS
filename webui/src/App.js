@@ -45,11 +45,11 @@ class App extends Component{
     Promise.all([
       this.modelLoader.loadModel(),
       this.cohortLoader.getCohort(index),
-      this.cohortLoader.getCohorts()
+      /*this.cohortLoader.getCohorts()*/
     ]).then(results => {
       const model = results[0];
       const cohort = results[1];
-      const cohorts = results[2];
+      /*const cohorts = results[2];*/
       const prediction = this.predictionClient.predict(model ,cohort);
       this.setState({
         warning: false,
