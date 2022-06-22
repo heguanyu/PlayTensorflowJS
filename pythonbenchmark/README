@@ -1,0 +1,10 @@
+
+Run model inference with Python
+
+For M1 mac, Need to install tensorflow
+https://sudhanva.me/install-tensorflow-on-apple-m1-pro-max/
+
+export PATH=/Users/your-user-name/Library/Python/3.8/bin:$PATH
+
+Run the notebook
+jupyter-lab python-inference.ipynb
