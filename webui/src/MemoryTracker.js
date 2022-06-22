@@ -38,7 +38,7 @@ class MemoryTracker extends Component{
                 width={400}
                 height={400}
                 data={this.state.memoryData}
-                margin={{ top: 50, right: 20, left:20, bottom: 35 }}
+                margin={{ top: 40, right: 20, left:20, bottom: 35 }}
             >
                 <XAxis dataKey="time">
                     <Label value="Time since start" offset={0} position="bottom" />

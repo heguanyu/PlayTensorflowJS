@@ -15,6 +15,8 @@ function TopNavigationBar() {
                 <Container>
                     <Nav className="ml-auto" activeKey={activeKey}>
                         <Navbar.Brand href={slash}>Tensorflow JS hackathon</Navbar.Brand>
+                        <Nav.Link href={slash + "singlecandidate"} >Pick a candidate</Nav.Link>
+                        <Nav.Link href={slash + "allcandidates"} >All candidates</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
