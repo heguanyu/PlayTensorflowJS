@@ -8,6 +8,7 @@ import CohortLoader from "./CohortLoader";
 import TopNavigationBar from "./TopNavigationBar";
 import MemoryTracker from "./MemoryTracker";
 import BenchmarkLoader from "./BenchmarkLoader";
+import {Button} from "react-bootstrap";
 
 class SingleCandidate extends Component{
   constructor(props) {
@@ -64,22 +65,20 @@ class SingleCandidate extends Component{
   }
 
   render() {
-    this.indexInput = (<input style={{marginLeft: "7px"}} type={"text"} onChange={this.updateTextValue.bind(this)}/>);
-    this.button = (<input style={{marginLeft: "20px"}} type={"button"} value={"Predict Score"} onClick={this.doCalculate.bind(this)}/>);
     return (
         <div className="SingleCandidate">
             <TopNavigationBar></TopNavigationBar>
             <MemoryTracker></MemoryTracker>
             <div style={{marginTop: "20px"}}>
               Index of test_data
-              {this.indexInput}
-              {this.button}
-              <span style={{display: this.state.warning? "inline": "none"}}>Must be a number 0-99</span>
+                <input style={{marginLeft: "7px", borderColor: this.state.warning?"red":""}} type={"text"} onChange={this.updateTextValue.bind(this)} placeholder={"0-99 for demo"}/>
+                <Button style={{marginLeft: "20px"}}  onClick={this.doCalculate.bind(this)}>Predict score</Button>
             </div>
+            <div style={{display: this.state.warning? "block": "none", color: "red"}}>Must be a number 0-99</div>
             <div style={{marginTop: "20px"}}>Prediction score is: {this.state.score}</div>
-            <div style={{marginTop: "3px"}}>Expected score is: {this.state.benchmark}</div>
-            <div style={{marginTop: "3px"}}>Time spent on prediction: {this.state.time}ms</div>
-            <div style={{marginTop: "40px"}}>Cohort being tested</div>
+            <div style={{marginTop: "0px"}}>Expected score is: {this.state.benchmark}</div>
+            <div style={{marginTop: "0px"}}>Time spent on prediction: {this.state.time}ms</div>
+            <div style={{marginTop: "40px", marginLeft: "-1150px"}}>Cohort being tested</div>
             <textarea value={prettyFormat(this.state.cohort)} style={{width: "1300px", height: "800px"}} title={"Content"}></textarea>
         </div>
     );
