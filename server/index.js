@@ -1,4 +1,3 @@
-// const cors = require('cors');
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -28,7 +27,7 @@ app.get('/', (req, res) => {
 app.get('/get_model', (req, res) => {
     const modelsBasePath = "/resources/models/"
     const directoryPath = __basedir + modelsBasePath;
-    const modelName = "native_tflite_model_from_mid_dummy_data.tflite"
+    const modelName = "native_tflite_model_from_mid_dummy_data_20220621.tflite"
     res.download(directoryPath + modelName, modelName, (err) => {
         if (err) {
           res.status(500).send({
