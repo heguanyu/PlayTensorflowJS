@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PredictionWithTensorflowJS'
-import {format as prettyFormat} from 'pretty-format';
+import Select from 'react-select'
 import {Component} from "react";
 import PredictionWithTensorflowJS from "./PredictionWithTensorflowJS";
 import ModelLoader from "./ModelLoader";
@@ -19,6 +19,21 @@ class GroupMatching extends Component{
     this.modelLoader = new ModelLoader()
     this.cohortLoader = new CohortLoader()
     this.benchmarkLoader = new BenchmarkLoader()
+    const allowedHashedIps = [
+      '003b24627654118ae4acb8b0634d58d027f98c96bea977773e8b2d7b8d8900e101',
+      '00a281498357d91d2d8e62c8b72eb82d77c6311805790a2d912da616b2960d4901',
+      '00d94a07a0dcecbab02b37a4d840c9996b902aae84de0c797bee280338a74af001',
+      '00f4a88626cde46b077103d9cb4fa78345ba60eac012d126bf5994b5e5d5c6c301',
+      '01084095f2deda9083bdd3df658ffeae02727c1d31c6cb092520f3d9e265020601',
+      '0151966f3c1f29f05e25ec972a547dc7f976a40144a6f808b2f8c21d25ea322e01',
+      '01b7bc8d4ae4f796729b185fc54a82365131ba49f462e0ef9da8c73ce53a8beb01'
+    ]
+    this.ipOptions = allowedHashedIps.map(ip => {
+      return {
+        value: ip,
+        label: ip
+      }
+    })
 
     this.state = {
       testResult: [],
@@ -54,9 +69,9 @@ class GroupMatching extends Component{
       })
     })
   }
-  updateTextValue(event) {
+  handleSelectVersion(selectedOption) {
     this.setState({
-      inputHashedIp: event.target.value
+      "inputHashedIp": selectedOption.value
     })
   }
 
@@ -90,13 +105,17 @@ class GroupMatching extends Component{
   }
 
   render() {
+
     return (
         <div className="GroupMatching">
             <TopNavigationBar></TopNavigationBar>
             <MemoryTracker></MemoryTracker>
             <div style={{marginTop: "20px"}}>
               Input Hashed IP
-              <input style={{marginLeft: "7px"}} type={"text"} onChange={this.updateTextValue.bind(this)} placeholder={"Hased IP Address"}/>
+              <div style={{display: "inline-block", width: "700px", margin: "0 5px"}} >
+                <Select options={this.ipOptions} onChange={this.handleSelectVersion.bind(this)}></Select>
+              </div>
+
               <Button style={{marginLeft: "20px"}}  onClick={this.doCalculate.bind(this)}>Predict score</Button>
             </div>
             {this.renderTable()}
