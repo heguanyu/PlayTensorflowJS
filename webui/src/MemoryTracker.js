@@ -33,18 +33,17 @@ class MemoryTracker extends Component{
     }
 
     render() {
-        return (<div style={{position: "fixed", left: "30px", top: "70px"}}>
+        return (<div style={{position: "fixed", left: "30px", top: "70px", transform: "scale(1.0)"}} >
             <LineChart
                 width={400}
                 height={400}
                 data={this.state.memoryData}
                 margin={{ top: 40, right: 20, left:20, bottom: 35 }}
             >
-                <XAxis dataKey="time">
+                <XAxis dataKey="time" interval={30}>
                     <Label value="Time since start" offset={0} position="bottom" />
                 </XAxis>
-                <YAxis dataKey={"memory"}>
-                    <Label value="Memory(MB)" offset={0} position="top" />
+                <YAxis dataKey={"memory"}  label={{ value: 'Memory(MB)', angle: -90, position: 'insideLeft' }}>
                 </YAxis>
                 <Tooltip />
                 <CartesianGrid stroke="#f5f5f5" />
