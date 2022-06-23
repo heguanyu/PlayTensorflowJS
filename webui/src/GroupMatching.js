@@ -78,7 +78,7 @@ class GroupMatching extends Component{
         <tr>
           <th>Cohort ID</th>
           <th>Predicted Score</th>
-          <th>Running time</th>
+          <th>Running time (ms)</th>
           <th>Feature Count</th>
         </tr>
         </thead>
