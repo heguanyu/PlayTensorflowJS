@@ -5,6 +5,7 @@ import React from "react";
 import {HashRouter, Route, Redirect, Switch, BrowserRouter} from 'react-router-dom';
 import SingleCandidate from "./SingleCandidate";
 import AllCandidates from "./AllCandidates";
+import GroupMatching from "./GroupMatching";
 
 class App extends React.Component {
   componentDidMount() {
@@ -13,9 +14,10 @@ class App extends React.Component {
 
   render() {
     const theswitch = (<Switch>
-        <Redirect path="/" exact to="/singlecandidate" />
-      <Route path="/allcandidates" exact component={AllCandidates} />
-      <Route path="/singlecandidate" exact component={SingleCandidate} />
+          <Redirect path="/" exact to="/singlecandidate" />
+          <Route path="/allcandidates" exact component={AllCandidates} />
+          <Route path="/singlecandidate" exact component={SingleCandidate} />
+          <Route path="/groupmatching" exact component={GroupMatching} />
     </Switch>)
     if (window.location.origin.indexOf(".github.io") > 0) {
       return (

@@ -50,7 +50,8 @@ app.get('/fetch_cohort', (req, res) => {
 })
 
 app.get('/fetch_cohorts', (req, res) => {
-    res.send(privateGroupCandidates.getCohorts())
+    const ip = req.query['ip'];
+    res.send(privateGroupCandidates.getCohorts(ip))
 });
 
 app.get('/python_result', (req, res) => {

@@ -22,11 +22,20 @@ function getCohort(index) {
     return _cohorts[+index]
 }
 
-function getCohorts() {
+function getCohorts(ip) {
     while(!_cohorts) {
         loadJson()
     }
-    return _cohorts;
+    if (ip) {
+        // filter by ip
+        return _.filter(_cohorts, cohort=> {
+            return cohort.ip == ip
+        })
+    }
+    else {
+        return _cohorts;
+    }
+
 }
 
 module.exports =  {

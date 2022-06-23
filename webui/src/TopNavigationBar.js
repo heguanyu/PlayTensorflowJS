@@ -17,6 +17,7 @@ function TopNavigationBar() {
                         <Navbar.Brand href={slash}>Tensorflow JS hackathon</Navbar.Brand>
                         <Nav.Link href={slash + "singlecandidate"} >Pick a candidate</Nav.Link>
                         <Nav.Link href={slash + "allcandidates"} >All candidates</Nav.Link>
+                        <Nav.Link href={slash + "groupmatching"} >Group matching</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
